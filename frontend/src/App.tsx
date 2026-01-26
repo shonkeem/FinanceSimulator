@@ -25,8 +25,9 @@ function App() {
       }
 
       const result = await response.json();
-      console.log(result.income - result.expenses);
-      setMessage('Success! Data posted: ' + result.payload);
+      console.log(result)
+      console.log(result.net);
+      setMessage('Success! Net income: ' + result.net);
     } catch (error) {
       setMessage('Error: ' + error.message);
     }

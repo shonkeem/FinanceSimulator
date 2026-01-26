@@ -37,4 +37,5 @@ def echo(payload: Any = Body(default={})):
 @app.post("/simulate")
 def simulate(payload: Input):
     stamp = datetime.now(timezone.utc).isoformat()
-    return {"payload": payload, "timestamp_utc": stamp}
+    net = payload.income - payload.expenses
+    return {"payload": payload, "net": net, "timestamp_utc": stamp}
