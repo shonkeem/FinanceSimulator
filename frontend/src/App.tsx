@@ -4,12 +4,26 @@ import './App.css'
 function App() {
   const [message, setMessage] = useState('default');
 
-  const submitData = async (submitEvent) => {
-    submitEvent.preventDefault()
+  type SimResult = {
+    net: number;
+    // add more fields as they become necessary
+  }
 
-    const data = new FormData(submitEvent.target);
-    const values = Object.fromEntries(data);
-    console.log(values);
+  type RequestState = 
+    | {status: "idle"}
+    | {status: "loading"}
+    | {status: "success"; result: SimResult}
+    | {status: "error"; errorMessage: string};
+
+  const [state, setState] = useState<RequestState>({status: "idle"});
+
+  const submitData = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setState({status: "loading"})
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const values = Object.fromEntries(data.entries());
 
     try {
       const response = await fetch("http://127.0.0.1:8000/simulate", {
@@ -21,39 +35,46 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was no ok");
+        throw new Error(`HTTP ${response.status}`);
       }
 
-      const result = await response.json();
-      console.log(result)
-      console.log(result.net);
-      setMessage('Success! Net income: ' + result.net);
+      const result: SimResult = await response.json();
+      setState({status: "success", result})
     } catch (error) {
-      setMessage('Error: ' + error.message);
+      const msg = error instanceof Error ? error.message : "Unknown error";
+      setState({status: "error", errorMessage: msg});
     }
   }
 
   function MyForm() {
     return (
-      <form onSubmit={submitData}>
-        <label>Name:</label><br />
-        <input name='name' type='text'/><br />
-        <label>Age:</label><br />
-        <input name='age' type='number'/><br />
-        <label>Income:</label><br />
-        <input name='income' type='number'/><br />
-        <label>Expenses:</label><br />
-        <input name='expenses' type='number'/><br />
+      <>
+        <form onSubmit={submitData}>
+          <label>Name:</label><br />
+          <input name='name' type='text'/><br />
+          <label>Age:</label><br />
+          <input name='age' type='number'/><br />
+          <label>Income:</label><br />
+          <input name='income' type='number'/><br />
+          <label>Expenses:</label><br />
+          <input name='expenses' type='number'/><br />
 
-        <button type='submit'>Simulate</button>
-      </form>
+          <button type='submit' disabled={state.status === "loading"}>
+            {state.status === "loading" ? "Running..." : "Simulate"} 
+          </button>
+        </form>
+
+        {state.status === "idle" && <p>No results yet.</p>}
+        {state.status === "loading" && <p>Running Simulation...</p>}
+        {state.status === "success" && <p>Net: {state.result.net}</p>}
+        {state.status === "error" && <p>Error: {state.errorMessage}</p>}
+      </>
     )
   }
 
   return (
     <>
       <MyForm />
-      <p>{message}</p>
     </>
   )
 }
