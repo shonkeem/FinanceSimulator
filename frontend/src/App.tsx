@@ -65,10 +65,6 @@ function App() {
     e.preventDefault()
     setState({status: "loading"})
 
-    // const form = event.currentTarget;
-    // const data = new FormData(form);
-    // const values = Object.fromEntries(data.entries());
-
     try {
       const response = await fetch("http://127.0.0.1:8000/simulate", {
         method: 'POST',
