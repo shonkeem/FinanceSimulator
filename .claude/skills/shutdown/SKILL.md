@@ -1,3 +1,8 @@
+---
+name: shutdown
+description: End-of-session audit for FinanceSimulator. Checks git status, runs tests, checks build, summarizes the session, updates CLAUDE.md current state, and writes the session log.
+---
+
 # End-of-Session Shutdown — Financial Simulation Sandbox
 
 **Do NOT commit, push, fix, or modify any code. This is a read-only audit.**
