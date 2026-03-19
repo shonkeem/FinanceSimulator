@@ -52,7 +52,10 @@ The simulation tracks these state variables at each timestep:
 ### Exists now
 - Final directory structure in place: `api/`, `src/simulation/models/`, `src/simulation/engine/`, `frontend/`, `tests/simulation/`, `framing.json`, `loads.json`, `settings.json`
 - Frontend form (`frontend/src/App.tsx`) — TypeScript errors resolved, `MyForm` extracted to module level, correct event types and error narrowing
+- `.gitignore` updated — `.venv/` replacing old `my_venv/` entry
 - `backend/` deleted — venv to be recreated at project root as `.venv/`
+- `/shutdown` skill — `.claude/skills/shutdown/SKILL.md` working and verified
+- `docs/PRD.md` — full product requirements document with phased roadmap, ADRs, schemas, acceptance criteria
 - All source files under `src/simulation/` and `api/` currently empty (scaffolding only)
 
 ### Does NOT exist yet
@@ -63,9 +66,11 @@ The simulation tracks these state variables at each timestep:
 - API endpoints (`api/main.py`)
 - Tests
 - Frontend visualization components
+- `.venv/` at project root (needs `python -m venv .venv`)
+- `npm install` not yet run in `frontend/` (node_modules missing)
 
 ### Next step
-Define the three JSON input file schemas (`framing.json` first, then `loads.json`, then `settings.json`). The Pydantic models are derived directly from these schemas — the JSON must be settled before writing any Python.
+Run `npm install` in `frontend/` and `python -m venv .venv && source .venv/bin/activate && pip install fastapi pydantic uvicorn` at project root to get the dev environment operational. Then define `framing.json` schema — fill in the empty file with the schema specified in `docs/PRD.md` Section 7.
 
 ## Do Not Touch List
 
