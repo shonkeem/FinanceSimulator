@@ -47,20 +47,25 @@ The simulation tracks these state variables at each timestep:
 
 ## Current Build State
 
+*Last updated: 2026-03-19*
+
 ### Exists now
-- Project scaffolding (Vite + React frontend, FastAPI backend skeleton)
-- Dev environment configured and running
-- Architecture decisions documented (this file)
+- Final directory structure in place: `api/`, `src/simulation/models/`, `src/simulation/engine/`, `frontend/`, `tests/simulation/`, `framing.json`, `loads.json`, `settings.json`
+- Frontend form (`frontend/src/App.tsx`) — TypeScript errors resolved, `MyForm` extracted to module level, correct event types and error narrowing
+- `backend/` deleted — venv to be recreated at project root as `.venv/`
+- All source files under `src/simulation/` and `api/` currently empty (scaffolding only)
 
 ### Does NOT exist yet
-- Simulation engine (core loop, state model, load application logic)
-- Pydantic input models for the three JSON files
-- API endpoints
-- Frontend visualization components
+- Content in `framing.json`, `loads.json`, `settings.json` (schemas not yet defined)
+- Pydantic input models (`src/simulation/models/inputs.py`)
+- `SimulationState` dataclass (`src/simulation/models/state.py`)
+- Simulation engine (core loop, load applicators)
+- API endpoints (`api/main.py`)
 - Tests
+- Frontend visualization components
 
-### Next milestone
-- Build the simulation engine: Pydantic input models → state dataclass → core loop → single deterministic run producing a timeline
+### Next step
+Define the three JSON input file schemas (`framing.json` first, then `loads.json`, then `settings.json`). The Pydantic models are derived directly from these schemas — the JSON must be settled before writing any Python.
 
 ## Do Not Touch List
 
@@ -103,23 +108,22 @@ If I mention any of these, remind me of this list and redirect to the current mi
 
 ```
 project-root/
+├── api/                  # FastAPI routes + dependencies
 ├── src/
-│   ├── simulation/       # Pure Python engine — no I/O, no imports from api/
-│   │   ├── models/       # Pydantic input models + state dataclass
-│   │   ├── engine/       # Core loop + load applicators
-│   │   └── __init__.py
-│   └── frontend/         # React + TypeScript
+│   └── simulation/       # Pure Python engine — no I/O, no imports from api/
+│       ├── models/       # Pydantic input models + state dataclass
+│       ├── engine/       # Core loop + load applicators
+│       └── __init__.py
+├── frontend/             # React + TypeScript (self-contained Node project)
+│   └── src/
 │       ├── components/   # Presentational components
 │       ├── hooks/        # Reusable custom hooks
 │       └── utils/        # Formatters, helpers
-├── api/                  # FastAPI routes + dependencies
 ├── tests/
 │   ├── simulation/       # Unit + integration tests for engine
-│   ├── api/              # Endpoint tests
-│   └── frontend/         # Component tests
-├── docs/
-│   └── CONVENTIONS.md    # This file
-├── framing.json          # Example input files
+│   └── api/              # Endpoint tests
+├── .venv/                # Python virtual environment
+├── framing.json          # Simulation input files
 ├── loads.json
 └── settings.json
 ```
