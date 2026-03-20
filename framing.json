@@ -1,0 +1,6 @@
+{
+  "label": "My base case scenario",
+  "start_date": "2025-01-01",
+  "end_date": "2034-12-01",
+  "time_step": "monthly"
+}
