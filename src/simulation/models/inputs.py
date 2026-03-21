@@ -3,6 +3,8 @@ from datetime import date
 from enum import Enum
 from typing import Optional
 
+# FRAMING
+
 class TimeStep(str, Enum):
     monthly = "monthly"
 
@@ -31,7 +33,9 @@ class FramingInput(BaseModel):
         if 12 * (self.end_date.year - self.start_date.year) + (self.end_date.month - self.start_date.month) > 600:
             raise ValueError("Start and end dates must be within 600 months of each other")
         return self
-    
+
+# LOADS
+
 class IncomeLoad(BaseModel):
     name: str
     monthly_gross: float
@@ -151,3 +155,30 @@ class LoadsInput(BaseModel):
             raise ValueError("Investment names must be unique")
         return self
     
+# SETTINGS
+class DebtStrategies(str, Enum):
+    minimum_only = "minimum_only"
+    avalanche = "avalanche"
+    snowball = "snowball"
+
+class SettingsInput(BaseModel):
+    inflation_rate: float
+    income_tax_rate: float
+    apply_income_tax: bool
+    apply_inflation_to_expenses: bool
+    debt_payoff_strategy: DebtStrategies
+    starting_cash: float
+
+    @field_validator("income_tax_rate")
+    @classmethod
+    def must_be_percentage(cls, v: float) -> float:
+        if v < 0 or v > 1:
+            raise ValueError("income_tax_rate must be between 0 and 1")
+        return v
+    
+    @field_validator("starting_cash")
+    @classmethod
+    def must_be_nonnegative(cls, v: float) -> float:
+        if v < 0:
+            raise ValueError("starting_cash must be >= 0")
+        return v

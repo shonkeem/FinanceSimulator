@@ -358,7 +358,6 @@ This order encodes financial priority: income → obligations → savings. Chang
 ```
 
 **Validation rules:**
-- `inflation_rate` ∈ [0, 0.25]
 - `income_tax_rate` ∈ [0, 1]
 - `debt_payoff_strategy` ∈ `["minimum_only", "avalanche", "snowball"]`
 - `starting_cash` ≥ 0

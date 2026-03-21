@@ -1,0 +1,45 @@
+{
+  "income": [
+    {
+      "name": "primary_salary",
+      "monthly_gross": 7500.00,
+      "annual_growth_rate": 0.03,
+      "start_date": "2025-01-01",
+      "end_date": null
+    }
+  ],
+  "expenses": [
+    {
+      "name": "rent",
+      "monthly_amount": 1800.00,
+      "category": "housing",
+      "inflation_linked": true
+    },
+    {
+      "name": "groceries",
+      "monthly_amount": 400.00,
+      "category": "food",
+      "inflation_linked": true
+    }
+  ],
+  "debts": [
+    {
+      "name": "student_loans",
+      "current_balance": 28000.00,
+      "annual_rate": 0.055,
+      "minimum_monthly_payment": 295.00,
+      "extra_monthly_payment": 200.00
+    }
+  ],
+  "investments": [
+    {
+      "name": "401k",
+      "account_type": "401k",
+      "current_balance": 15000.00,
+      "monthly_contribution": 500.00,
+      "employer_match_rate": 0.50,
+      "employer_match_cap_pct_salary": 0.06,
+      "assumed_annual_return": 0.07
+    }
+  ]
+}

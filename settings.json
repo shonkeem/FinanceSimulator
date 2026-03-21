@@ -1,0 +1,8 @@
+{
+  "inflation_rate": 0.03,
+  "income_tax_rate": 0.22,
+  "apply_income_tax": true,
+  "apply_inflation_to_expenses": true,
+  "debt_payoff_strategy": "avalanche",
+  "starting_cash": 5000.00
+}
