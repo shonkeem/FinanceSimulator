@@ -320,7 +320,6 @@ This order encodes financial priority: income → obligations → savings. Chang
 
 **Validation rules — Income:**
 - `monthly_gross` > 0
-- `annual_growth_rate` ∈ [-0.5, 0.5] (allows salary cuts)
 - `end_date` null means "runs until end of simulation"
 - Names must be unique across all income entries
 
@@ -341,7 +340,6 @@ This order encodes financial priority: income → obligations → savings. Chang
 - `monthly_contribution` ≥ 0
 - `employer_match_rate` ∈ [0, 1]
 - `employer_match_cap_pct_salary` ∈ [0, 1]
-- `assumed_annual_return` ∈ [-0.5, 0.5]
 - Names must be unique across all investment entries
 
 ---
